@@ -382,7 +382,16 @@ $ echo "Let's build something great"
 
       {/* ABOUT */}
       <Section id="about" title="About Me" eyebrow="Introduction">
-        <div className="glass rounded-2xl p-8 md:p-10">
+        <div className="glass rounded-2xl p-6 md:p-10 grid gap-8 md:grid-cols-[auto_1fr] items-center">
+          <div className="relative mx-auto md:mx-0 shrink-0">
+            <div className="absolute -inset-2 rounded-3xl bg-gradient-primary opacity-40 blur-2xl" />
+            <img
+              src={anbuPhoto.url}
+              alt="Anbuselvan K, Python Full Stack Developer"
+              loading="lazy"
+              className="relative h-56 w-56 md:h-64 md:w-64 rounded-3xl object-cover border border-border shadow-card"
+            />
+          </div>
           <p className="text-muted-foreground leading-relaxed md:text-lg">
             I'm a Python Full Stack Developer with hands-on experience in{" "}
             <span className="text-foreground">Python, Django, HTML, CSS, JavaScript, React, SQL,
