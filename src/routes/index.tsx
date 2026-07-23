@@ -22,6 +22,46 @@ import {
   MapPin,
 } from "lucide-react";
 import resumeAsset from "@/assets/resume.asset.json";
+import anbuPhoto from "@/assets/anbu.jpg.asset.json";
+
+const PERSON_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Anbuselvan K",
+  jobTitle: "Python Full Stack Developer",
+  email: "mailto:anbuselvan.k1204@gmail.com",
+  telephone: "+91-9787008131",
+  image: anbuPhoto.url,
+  url: "/",
+  sameAs: [
+    "https://github.com/anbuselvank1204-anbu",
+    "https://www.linkedin.com/in/anbuselvan-k-b51aa6423/",
+  ],
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Thiruvalluvar University",
+  },
+  knowsAbout: [
+    "Python",
+    "Django",
+    "React",
+    "Node.js",
+    "Express.js",
+    "MongoDB",
+    "SQL",
+    "Solidity",
+    "Ethers.js",
+    "REST APIs",
+  ],
+};
+
+const WEBSITE_JSONLD = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "Anbuselvan K — Portfolio",
+  url: "/",
+  author: { "@type": "Person", name: "Anbuselvan K" },
+};
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -32,14 +72,29 @@ export const Route = createFileRoute("/")({
         content:
           "Portfolio of Anbuselvan K — Python Full Stack Developer building responsive, scalable web apps with Django, React, Node.js and blockchain.",
       },
+      { name: "keywords", content: "Anbuselvan K, Python Developer, Full Stack Developer, Django, React, Node.js, MERN, Blockchain, Solidity, Portfolio" },
+      { name: "author", content: "Anbuselvan K" },
       { property: "og:title", content: "Anbuselvan K — Python Full Stack Developer" },
       {
         property: "og:description",
         content:
           "Projects, skills and experience of Anbuselvan K, a Python Full Stack Developer.",
       },
-      { property: "og:type", content: "website" },
+      { property: "og:type", content: "profile" },
+      { property: "og:url", content: "/" },
+      { property: "og:image", content: anbuPhoto.url },
+      { property: "og:image:alt", content: "Anbuselvan K" },
+      { property: "profile:first_name", content: "Anbuselvan" },
+      { property: "profile:last_name", content: "K" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Anbuselvan K — Python Full Stack Developer" },
+      { name: "twitter:description", content: "Python Full Stack Developer portfolio — projects, skills, and experience." },
+      { name: "twitter:image", content: anbuPhoto.url },
+    ],
+    links: [{ rel: "canonical", href: "/" }],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify(PERSON_JSONLD) },
+      { type: "application/ld+json", children: JSON.stringify(WEBSITE_JSONLD) },
     ],
   }),
   component: Portfolio,
