@@ -481,8 +481,7 @@ $ echo "Let's build something great"
           {filtered.map((p) => (
             <article
               key={p.title}
-              data-reveal
-              className="opacity-0 translate-y-6 transition-all duration-700 glass rounded-2xl p-6 flex flex-col hover:-translate-y-1 hover:shadow-glow"
+              className="transition-all duration-300 glass rounded-2xl p-6 flex flex-col hover:-translate-y-1 hover:shadow-glow"
             >
               <div className="flex items-start justify-between gap-4">
                 <h3 className="font-display text-xl font-semibold">{p.title}</h3>
