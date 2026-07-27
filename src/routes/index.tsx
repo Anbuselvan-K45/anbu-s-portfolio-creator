@@ -691,12 +691,20 @@ $ echo "Let's build something great"
             </div>
             <ul className="space-y-2 text-sm text-muted-foreground">
               {CERTS.map((c) => (
-                <li key={c} className="flex gap-2">
+                <li key={c.title} className="flex gap-2">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-primary" />
-                  <span>{c}</span>
+                  <span>
+                    <span className="text-foreground">{c.title}</span> — {c.issuer}
+                  </span>
                 </li>
               ))}
             </ul>
+            <a
+              href="#certificates"
+              className="mt-4 inline-flex items-center gap-1 text-xs text-[color:var(--accent)] hover:underline"
+            >
+              View certificate gallery <ArrowRight className="h-3 w-3" />
+            </a>
           </div>
         </div>
       </Section>
