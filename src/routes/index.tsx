@@ -198,6 +198,7 @@ function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [filter, setFilter] = useState<string>("All");
+  const [lightbox, setLightbox] = useState<number | null>(null);
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
