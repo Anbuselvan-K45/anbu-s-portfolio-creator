@@ -1,0 +1,3 @@
+Please replace this placeholder with your actual About section image at public/assets/about.jpg
+
+Then update src/routes/index.tsx to point to /assets/about.jpg.

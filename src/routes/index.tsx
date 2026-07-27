@@ -24,6 +24,22 @@ import {
 import resumeAsset from "@/assets/resume.asset.json";
 import anbuPhoto from "@/assets/anbu.jpg.asset.json";
 
+const aboutImageUrl = "/assets/Anbuselvan.K.jpeg";
+
+const resolveAssetUrl = (
+  asset: { url?: string; original_filename?: string } | undefined,
+  fallback: string,
+) => {
+  if (!asset || !asset.url) return fallback;
+  // Lovable editor preview URLs begin with /__l5e and won't be served
+  // by the dev server. Use a sensible fallback during local development.
+  if (import.meta.env.DEV && asset.url.startsWith("/__l5e")) return fallback;
+  return asset.url;
+};
+
+const anbuUrl = resolveAssetUrl(anbuPhoto as any, "/favicon.ico");
+const resumeUrl = resolveAssetUrl(resumeAsset as any, "#");
+
 const PERSON_JSONLD = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -82,14 +98,14 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "profile" },
       { property: "og:url", content: "/" },
-      { property: "og:image", content: anbuPhoto.url },
+      { property: "og:image", content: anbuUrl },
       { property: "og:image:alt", content: "Anbuselvan K" },
       { property: "profile:first_name", content: "Anbuselvan" },
       { property: "profile:last_name", content: "K" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Anbuselvan K — Python Full Stack Developer" },
       { name: "twitter:description", content: "Python Full Stack Developer portfolio — projects, skills, and experience." },
-      { name: "twitter:image", content: anbuPhoto.url },
+      { name: "twitter:image", content: anbuUrl },
     ],
     links: [{ rel: "canonical", href: "/" }],
     scripts: [
@@ -260,7 +276,7 @@ function Portfolio() {
             ))}
           </ul>
           <a
-            href={resumeAsset.url}
+            href={resumeUrl}
             download="Anbuselvan_K_Resume.pdf"
             className="hidden md:inline-flex items-center gap-2 rounded-full bg-gradient-primary px-4 py-2 text-sm font-medium text-primary-foreground shadow-glow hover:opacity-90 transition"
           >
@@ -288,8 +304,8 @@ function Portfolio() {
                   </a>
                 </li>
               ))}
-              <a
-                href={resumeAsset.url}
+                  <a
+                    href={resumeUrl}
                 download="Anbuselvan_K_Resume.pdf"
                 className="mt-2 inline-flex items-center gap-2 rounded-full bg-gradient-primary px-4 py-2 text-sm font-medium text-primary-foreground"
               >
@@ -330,7 +346,7 @@ function Portfolio() {
                 View My Projects <ArrowRight className="h-4 w-4" />
               </a>
               <a
-                href={resumeAsset.url}
+                href={resumeUrl}
                 download="Anbuselvan_K_Resume.pdf"
                 className="inline-flex items-center gap-2 rounded-full glass px-5 py-2.5 text-sm font-medium hover:bg-secondary transition"
               >
@@ -409,8 +425,8 @@ $ echo "Let's build something great"
           <div className="relative mx-auto md:mx-0 shrink-0">
             <div className="absolute -inset-2 rounded-3xl bg-gradient-primary opacity-40 blur-2xl" />
             <img
-              src={anbuPhoto.url}
-              alt="Anbuselvan K, Python Full Stack Developer"
+              src={aboutImageUrl}
+              alt="Portfolio hero illustration"
               loading="lazy"
               className="relative h-56 w-56 md:h-64 md:w-64 rounded-3xl object-cover border border-border shadow-card"
             />
