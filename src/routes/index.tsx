@@ -189,22 +189,38 @@ const CERTS: {
   {
     title: "Full Stack Development Internship",
     issuer: "Edu Tantr",
+    image: "/certificates/Full-Stack-Development-Internship.jpg",
     accent: "from-blue-500/40 to-cyan-500/30",
-  },
-  {
-    title: "Oracle Certified Foundation Associate",
-    issuer: "Oracle University",
-    accent: "from-red-500/40 to-orange-500/30",
   },
   {
     title: "Basics of Python",
     issuer: "Infosys Springboard",
+    image: "/certificates/Basics-of-Python.jpg",
     accent: "from-emerald-500/40 to-teal-500/30",
+  },
+  {
+    title: "Introduction to Agile Methodology",
+    issuer: "Infosys Springboard",
+    image: "/certificates/Introduction-to-Agile-Methodology.jpg",
+    accent: "from-yellow-500/40 to-orange-500/30",
   },
   {
     title: "Object-Oriented Programming Using Python",
     issuer: "Infosys Springboard",
+    image: "/certificates/Object-Oriented-Programming-Using-Python.jpg",
     accent: "from-violet-500/40 to-fuchsia-500/30",
+  },
+  {
+    title: "Tamil Nadu Innovation Initiatives (TANII) Hackathon",
+    issuer: "Government Arts and Science College",
+    image: "/certificates/Tamil-Nadu-Innovation-Initiatives-Hackathon.jpg",
+    accent: "from-purple-500/40 to-pink-500/30",
+  },
+  {
+    title: "Oracle Certified Foundations Associate",
+    issuer: "Oracle University",
+    image: "/certificates/Oracle-Certified-Foundations-Associate.jpg",
+    accent: "from-red-500/40 to-orange-500/30",
   },
 ];
 
