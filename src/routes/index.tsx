@@ -105,6 +105,7 @@ const NAV = [
   { href: "#skills", label: "Skills" },
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
+  { href: "#certificates", label: "Certificates" },
   { href: "#education", label: "Education" },
   { href: "#contact", label: "Contact" },
 ];
@@ -163,11 +164,32 @@ const PROJECTS = [
   },
 ];
 
-const CERTS = [
-  "Internship Full Stack Development Certificate — Edu Tantr",
-  "Oracle Certified Foundation Associate — Oracle University",
-  "Basics of Python — Infosys",
-  "Object-Oriented Programming Using Python — Infosys",
+const CERTS: {
+  title: string;
+  issuer: string;
+  image?: string;
+  accent: string;
+}[] = [
+  {
+    title: "Full Stack Development Internship",
+    issuer: "Edu Tantr",
+    accent: "from-blue-500/40 to-cyan-500/30",
+  },
+  {
+    title: "Oracle Certified Foundation Associate",
+    issuer: "Oracle University",
+    accent: "from-red-500/40 to-orange-500/30",
+  },
+  {
+    title: "Basics of Python",
+    issuer: "Infosys Springboard",
+    accent: "from-emerald-500/40 to-teal-500/30",
+  },
+  {
+    title: "Object-Oriented Programming Using Python",
+    issuer: "Infosys Springboard",
+    accent: "from-violet-500/40 to-fuchsia-500/30",
+  },
 ];
 
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags)));
@@ -176,6 +198,7 @@ function Portfolio() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [filter, setFilter] = useState<string>("All");
+  const [lightbox, setLightbox] = useState<number | null>(null);
   const [sent, setSent] = useState(false);
 
   useEffect(() => {
@@ -477,53 +500,170 @@ $ echo "Let's build something great"
             </button>
           ))}
         </div>
-        <div className="grid gap-6 md:grid-cols-2">
-          {filtered.map((p) => (
-            <article
-              key={p.title}
-              className="transition-all duration-300 glass rounded-2xl p-6 flex flex-col hover:-translate-y-1 hover:shadow-glow"
+        <p className="mb-4 text-xs text-muted-foreground">
+          Showing <span className="text-foreground font-medium">{filtered.length}</span> of{" "}
+          {PROJECTS.length} projects
+          {filter !== "All" && (
+            <>
+              {" "}
+              tagged{" "}
+              <span className="text-[color:var(--accent)] font-medium">{filter}</span>
+            </>
+          )}
+        </p>
+        {filtered.length === 0 ? (
+          <div className="glass rounded-2xl p-8 text-center text-sm text-muted-foreground">
+            No projects match "{filter}" yet.{" "}
+            <button
+              onClick={() => setFilter("All")}
+              className="text-[color:var(--accent)] hover:underline"
             >
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="font-display text-xl font-semibold">{p.title}</h3>
-                <span className="shrink-0 text-xs text-muted-foreground">
-                  {p.period}
+              Clear filter
+            </button>
+          </div>
+        ) : (
+          <div className="grid gap-6 md:grid-cols-2">
+            {filtered.map((p) => (
+              <article
+                key={p.title}
+                className="transition-all duration-300 glass rounded-2xl p-6 flex flex-col hover:-translate-y-1 hover:shadow-glow"
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <h3 className="font-display text-xl font-semibold">{p.title}</h3>
+                  <span className="shrink-0 text-xs text-muted-foreground">
+                    {p.period}
+                  </span>
+                </div>
+                <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+                  {p.description}
+                </p>
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {p.tags.map((t) => (
+                    <span
+                      key={t}
+                      className="rounded-full bg-secondary/60 border border-border px-2.5 py-0.5 text-[11px] text-foreground/90"
+                    >
+                      {t}
+                    </span>
+                  ))}
+                </div>
+                <div className="mt-6 flex gap-3">
+                  <a
+                    href={p.demo}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-gradient-primary px-4 py-2 text-xs font-medium text-primary-foreground hover:opacity-90"
+                  >
+                    <ExternalLink className="h-3.5 w-3.5" /> Live Demo
+                  </a>
+                  <a
+                    href={p.github}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-medium hover:bg-secondary"
+                  >
+                    <Github className="h-3.5 w-3.5" /> GitHub
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </Section>
+
+      {/* CERTIFICATES */}
+      <Section id="certificates" title="Certificates" eyebrow="Credentials">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {CERTS.map((c, i) => (
+            <button
+              key={c.title}
+              onClick={() => setLightbox(i)}
+              className="group glass rounded-2xl overflow-hidden text-left transition hover:-translate-y-1 hover:shadow-glow"
+            >
+              <div
+                className={`relative aspect-[4/3] w-full bg-gradient-to-br ${c.accent} flex items-center justify-center overflow-hidden`}
+              >
+                {c.image ? (
+                  <img
+                    src={c.image}
+                    alt={`${c.title} certificate`}
+                    loading="lazy"
+                    className="h-full w-full object-cover transition duration-500 group-hover:scale-105"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center gap-2 px-4 text-center">
+                    <Award className="h-10 w-10 text-foreground/80" />
+                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-foreground/70">
+                      Certificate
+                    </span>
+                  </div>
+                )}
+                <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-background/90 to-transparent" />
+              </div>
+              <div className="p-4">
+                <h3 className="font-display text-sm font-semibold leading-snug">
+                  {c.title}
+                </h3>
+                <p className="mt-1 text-xs text-muted-foreground">{c.issuer}</p>
+                <span className="mt-3 inline-flex items-center gap-1 text-[11px] text-[color:var(--accent)]">
+                  View <ExternalLink className="h-3 w-3" />
                 </span>
               </div>
-              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
-                {p.description}
-              </p>
-              <div className="mt-4 flex flex-wrap gap-2">
-                {p.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full bg-secondary/60 border border-border px-2.5 py-0.5 text-[11px] text-foreground/90"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-              <div className="mt-6 flex gap-3">
-                <a
-                  href={p.demo}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full bg-gradient-primary px-4 py-2 text-xs font-medium text-primary-foreground hover:opacity-90"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" /> Live Demo
-                </a>
-                <a
-                  href={p.github}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-xs font-medium hover:bg-secondary"
-                >
-                  <Github className="h-3.5 w-3.5" /> GitHub
-                </a>
-              </div>
-            </article>
+            </button>
           ))}
         </div>
       </Section>
+
+      {lightbox !== null && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          onClick={() => setLightbox(null)}
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-background/80 backdrop-blur-sm p-4 animate-in fade-in"
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className="relative w-full max-w-3xl glass rounded-2xl overflow-hidden"
+          >
+            <button
+              onClick={() => setLightbox(null)}
+              aria-label="Close"
+              className="absolute right-3 top-3 z-10 grid h-9 w-9 place-items-center rounded-full bg-background/70 hover:bg-background text-foreground"
+            >
+              <X className="h-4 w-4" />
+            </button>
+            <div
+              className={`aspect-[4/3] w-full bg-gradient-to-br ${CERTS[lightbox].accent} flex items-center justify-center`}
+            >
+              {CERTS[lightbox].image ? (
+                <img
+                  src={CERTS[lightbox].image}
+                  alt={`${CERTS[lightbox].title} certificate`}
+                  className="h-full w-full object-contain"
+                />
+              ) : (
+                <div className="flex flex-col items-center gap-3 text-center px-6">
+                  <Award className="h-16 w-16 text-foreground/80" />
+                  <p className="text-sm text-muted-foreground max-w-sm">
+                    Certificate image not uploaded yet. Add an{" "}
+                    <span className="font-mono text-foreground">image</span> URL to this
+                    entry in the <span className="font-mono text-foreground">CERTS</span>{" "}
+                    array to display it here.
+                  </p>
+                </div>
+              )}
+            </div>
+            <div className="p-5 border-t border-border">
+              <h3 className="font-display text-lg font-semibold">
+                {CERTS[lightbox].title}
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Issued by {CERTS[lightbox].issuer}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* EDUCATION + CERTS */}
       <Section id="education" title="Education & Certifications" eyebrow="Background">
@@ -551,12 +691,20 @@ $ echo "Let's build something great"
             </div>
             <ul className="space-y-2 text-sm text-muted-foreground">
               {CERTS.map((c) => (
-                <li key={c} className="flex gap-2">
+                <li key={c.title} className="flex gap-2">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-gradient-primary" />
-                  <span>{c}</span>
+                  <span>
+                    <span className="text-foreground">{c.title}</span> — {c.issuer}
+                  </span>
                 </li>
               ))}
             </ul>
+            <a
+              href="#certificates"
+              className="mt-4 inline-flex items-center gap-1 text-xs text-[color:var(--accent)] hover:underline"
+            >
+              View certificate gallery <ArrowRight className="h-3 w-3" />
+            </a>
           </div>
         </div>
       </Section>
