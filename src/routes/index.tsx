@@ -163,11 +163,32 @@ const PROJECTS = [
   },
 ];
 
-const CERTS = [
-  "Internship Full Stack Development Certificate — Edu Tantr",
-  "Oracle Certified Foundation Associate — Oracle University",
-  "Basics of Python — Infosys",
-  "Object-Oriented Programming Using Python — Infosys",
+const CERTS: {
+  title: string;
+  issuer: string;
+  image?: string;
+  accent: string;
+}[] = [
+  {
+    title: "Full Stack Development Internship",
+    issuer: "Edu Tantr",
+    accent: "from-blue-500/40 to-cyan-500/30",
+  },
+  {
+    title: "Oracle Certified Foundation Associate",
+    issuer: "Oracle University",
+    accent: "from-red-500/40 to-orange-500/30",
+  },
+  {
+    title: "Basics of Python",
+    issuer: "Infosys Springboard",
+    accent: "from-emerald-500/40 to-teal-500/30",
+  },
+  {
+    title: "Object-Oriented Programming Using Python",
+    issuer: "Infosys Springboard",
+    accent: "from-violet-500/40 to-fuchsia-500/30",
+  },
 ];
 
 const ALL_TAGS = Array.from(new Set(PROJECTS.flatMap((p) => p.tags)));
